@@ -5,179 +5,287 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>M.I.L.I.T.I.A. — Charter & Frontline Reporting</title>
   <style>
-    body {
+    :root{
+      --bg:#0f0f0f;
+      --panel:#151515;
+      --panel2:#121212;
+      --text:#f0f0f0;
+      --muted:rgba(240,240,240,0.75);
+      --accent:#e94560;
+      --border:rgba(255,255,255,0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body{
+      margin:0;
       font-family: Arial, sans-serif;
-      background-color: #0f0f0f;
-      color: #f0f0f0;
-      padding: 40px;
-      line-height: 1.6;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(233,69,96,0.12), transparent 60%),
+                  radial-gradient(900px 500px at 80% 30%, rgba(126,214,223,0.10), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      line-height:1.6;
     }
-    h1, h2 {
-      color: #e94560;
-      margin: 0 0 12px 0;
+
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 28px 18px 60px;
     }
-    p { margin: 0 0 12px 0; }
-    ul { margin: 0 0 12px 18px; }
-    li { margin: 6px 0; }
-    .section { margin-bottom: 40px; }
-    .download {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 12px 22px;
-      background-color: #e94560;
-      color: #ffffff;
+
+    .hero{
+      background: linear-gradient(180deg, rgba(233,69,96,0.14), rgba(233,69,96,0.02));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 18px;
+      margin-bottom: 18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    h1{
+      margin:0;
+      font-size: 2rem;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+    }
+
+    .subtitle{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .tagline{
+      margin: 14px 0 0;
+      color: var(--text);
+      opacity: 0.95;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    @media (min-width: 860px){
+      .grid{
+        grid-template-columns: 1fr 1fr;
+      }
+      .span2{ grid-column: 1 / -1; }
+    }
+
+    .card{
+      background: linear-gradient(180deg, var(--panel), var(--panel2));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 18px 16px;
+    }
+
+    .card h2{
+      margin: 0 0 10px;
+      font-size: 1.15rem;
+      color: var(--accent);
+    }
+
+    p{ margin: 0 0 10px; }
+    ul{ margin: 0; padding-left: 18px; }
+    li{ margin: 6px 0; color: rgba(240,240,240,0.92); }
+
+    .btn{
+      display:inline-block;
+      margin-top: 8px;
+      padding: 12px 16px;
+      background: var(--accent);
+      color: #fff;
       text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
+      border-radius: 10px;
+      font-weight: 700;
+      border: 0;
       cursor: pointer;
     }
-    .download:hover { background-color: #d43752; }
-    .status { margin-top: 10px; opacity: 0.9; font-size: 0.95rem; }
-    code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 4px; }
+    .btn:hover{ filter: brightness(0.95); }
+
+    .status{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    code{
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: rgba(240,240,240,0.95);
+    }
+
+    .footer{
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
   </style>
 </head>
 <body>
+  <div class="wrap">
 
-  <div class="section">
-    <h1>M.I.L.I.T.I.A.</h1>
-    <p><strong>Modern Independent Leaders Inspiring Tactical, Intelligent Action</strong></p>
-    <p>
-      M.I.L.I.T.I.A. is a lawful, community-based preparedness and civic action organization.
-      It exists to strengthen communities by promoting awareness, organization, ethical conduct,
-      and responsible action during periods of social stress, emergency, or civic disruption.
-    </p>
-  </div>
+    <div class="hero">
+      <div class="brand">
+        <div>
+          <h1>M.I.L.I.T.I.A.</h1>
+          <div class="subtitle">Modern Independent Leaders Inspiring Tactical, Intelligent Action</div>
+        </div>
+      </div>
+      <p class="tagline">
+        M.I.L.I.T.I.A. is a lawful, community-based preparedness and civic action organization.
+        It exists to strengthen communities through awareness, ethical conduct, and responsible action
+        during periods of social stress, emergency, or civic disruption.
+      </p>
+    </div>
 
-  <div class="section">
-    <h2>Why This Organization Exists</h2>
-    <p>
-      Communities face increasing challenges including natural disasters, misinformation,
-      social unrest, and gaps in emergency response. M.I.L.I.T.I.A. prepares individuals to
-      respond calmly, lawfully, and responsibly—without panic, extremism, or vigilantism.
-    </p>
-  </div>
+    <div class="grid">
 
-  <div class="section">
-    <h2>Purpose</h2>
-    <ul>
-      <li>Promote community preparedness and mutual aid</li>
-      <li>Encourage civic awareness and critical thinking</li>
-      <li>Support lawful community defense and public safety</li>
-      <li>Assist with de-escalation during lawful civic action</li>
-      <li>Uphold constitutional principles and individual rights</li>
-    </ul>
-    <p>The organization does not seek conflict and prioritizes prevention and restraint.</p>
-  </div>
+      <div class="card">
+        <h2>Why This Organization Exists</h2>
+        <p>
+          Communities face increasing challenges including natural disasters, misinformation, social unrest,
+          and gaps in emergency response. M.I.L.I.T.I.A. prepares individuals to respond calmly, lawfully,
+          and responsibly—without panic, extremism, or vigilantism.
+        </p>
+      </div>
 
-  <div class="section">
-    <h2>Core Principles</h2>
-    <ul>
-      <li><strong>Truth over misinformation</strong></li>
-      <li><strong>Honor over ego</strong></li>
-      <li><strong>Preparedness over dependence</strong></li>
-      <li><strong>Action over apathy</strong></li>
-      <li><strong>Community over division</strong></li>
-    </ul>
-  </div>
+      <div class="card">
+        <h2>Core Principles</h2>
+        <ul>
+          <li><strong>Truth over misinformation</strong></li>
+          <li><strong>Honor over ego</strong></li>
+          <li><strong>Preparedness over dependence</strong></li>
+          <li><strong>Action over apathy</strong></li>
+          <li><strong>Community over division</strong></li>
+        </ul>
+      </div>
 
-  <div class="section">
-    <h2>What M.I.L.I.T.I.A. Is Not</h2>
-    <ul>
-      <li>Not a political party or campaign organization</li>
-      <li>Not a law enforcement agency</li>
-      <li>Not a paramilitary or insurgent group</li>
-      <li>Not a secret society or cult</li>
-      <li>Not aligned with extremism, racism, or religious hatred</li>
-    </ul>
-  </div>
+      <div class="card span2">
+        <h2>Purpose</h2>
+        <ul>
+          <li>Promote community preparedness and mutual aid</li>
+          <li>Encourage civic awareness and critical thinking</li>
+          <li>Support lawful community defense and public safety</li>
+          <li>Assist with de-escalation during lawful civic action</li>
+          <li>Uphold constitutional principles and individual rights</li>
+        </ul>
+        <p style="margin-top:10px;color:rgba(240,240,240,0.85);">
+          The organization does not seek conflict and prioritizes prevention and restraint.
+        </p>
+      </div>
 
-  <div class="section">
-    <h2>Code of Conduct</h2>
-    <ul>
-      <li>Violence is never initiated</li>
-      <li>De-escalation is always preferred</li>
-      <li>All actions must be lawful</li>
-      <li>Members do not impersonate authorities</li>
-      <li>Civilians and bystanders are protected</li>
-      <li>No harassment, intimidation, or vigilantism</li>
-    </ul>
-  </div>
+      <div class="card">
+        <h2>Code of Conduct</h2>
+        <ul>
+          <li>Violence is never initiated</li>
+          <li>De-escalation is always preferred</li>
+          <li>All actions must be lawful</li>
+          <li>No impersonation of authorities</li>
+          <li>Civilians and bystanders are protected</li>
+          <li>No harassment, intimidation, or vigilantism</li>
+        </ul>
+      </div>
 
-  <div class="section">
-    <h2>Membership Expectations</h2>
-    <ul>
-      <li>Conduct yourself lawfully and respectfully</li>
-      <li>Participate in preparedness, education, or community-support activities</li>
-      <li>Stay calm and disciplined during stressful situations</li>
-      <li>Avoid spreading misinformation or inflammatory rhetoric</li>
-      <li>Represent the organization responsibly when acting publicly</li>
-    </ul>
-    <p>Membership is voluntary and does not confer authority over others.</p>
-  </div>
+      <div class="card">
+        <h2>What We Are Not</h2>
+        <ul>
+          <li>Not a political party or campaign organization</li>
+          <li>Not a law enforcement agency</li>
+          <li>Not a paramilitary or insurgent group</li>
+          <li>Not a secret society or cult</li>
+          <li>Not aligned with extremism, racism, or religious hatred</li>
+        </ul>
+      </div>
 
-  <div class="section">
-    <h2>Structure &amp; Roles</h2>
-    <ul>
-      <li><strong>Observer</strong> — Learning and situational awareness</li>
-      <li><strong>Member</strong> — Participation in preparedness and mutual aid</li>
-      <li><strong>Defender</strong> — Safety awareness during lawful events</li>
-      <li><strong>Planner</strong> — Emergency planning and logistics support</li>
-      <li><strong>Coordinator</strong> — Local organization and scheduling</li>
-      <li><strong>Senior Member</strong> — Mentorship and standards guidance</li>
-    </ul>
-  </div>
+      <div class="card span2">
+        <h2>Structure &amp; Roles</h2>
+        <ul>
+          <li><strong>Observer</strong> — Learning and situational awareness</li>
+          <li><strong>Member</strong> — Participation in preparedness and mutual aid</li>
+          <li><strong>Defender</strong> — Safety awareness during lawful events</li>
+          <li><strong>Planner</strong> — Emergency planning and logistics support</li>
+          <li><strong>Coordinator</strong> — Local organization and scheduling</li>
+          <li><strong>Senior Member</strong> — Mentorship and standards guidance</li>
+        </ul>
+      </div>
 
-  <div class="section">
-    <h2>Oversight &amp; Accountability</h2>
-    <ul>
-      <li><strong>Ethics Lead</strong> — Ensures alignment with principles and ethical standards</li>
-      <li><strong>Member Representative</strong> — Conveys concerns, feedback, and morale issues</li>
-      <li><strong>Compliance Reviewer</strong> — Reviews conduct and adherence to rules and law</li>
-    </ul>
-    <p>Oversight exists to limit misuse of power and maintain trust.</p>
-  </div>
+      <div class="card">
+        <h2>Oversight</h2>
+        <ul>
+          <li><strong>Ethics Lead</strong> — Ensures alignment with principles</li>
+          <li><strong>Member Representative</strong> — Conveys concerns and feedback</li>
+          <li><strong>Compliance Reviewer</strong> — Reviews conduct and adherence to rules and law</li>
+        </ul>
+      </div>
 
-  <div class="section">
-    <h2>Decision-Making Process</h2>
-    <ul>
-      <li>Routine decisions are made through discussion and consensus where possible</li>
-      <li>No individual has unilateral authority over the organization</li>
-      <li>Urgent safety decisions may be made temporarily, subject to later review</li>
-    </ul>
-  </div>
+      <div class="card">
+        <h2>Decision-Making</h2>
+        <ul>
+          <li>Discussion and consensus where possible</li>
+          <li>No unilateral authority</li>
+          <li>Urgent safety decisions are reviewed afterward</li>
+        </ul>
+      </div>
 
-  <div class="section">
-    <h2>Scope &amp; Limits of Authority</h2>
-    <ul>
-      <li>Members do not act as law enforcement</li>
-      <li>Members do not detain, interrogate, or punish others</li>
-      <li>No member acts independently in the organization’s name</li>
-      <li>All participation is voluntary and bounded by law</li>
-    </ul>
-  </div>
+      <div class="card span2">
+        <h2>Documentation &amp; Frontline Reporting</h2>
+        <p>
+          M.I.L.I.T.I.A. lawfully documents public events, protests, and civic gatherings to preserve accurate
+          public records and provide firsthand reporting. Documentation occurs openly, only in public spaces,
+          and in compliance with applicable recording and consent laws.
+        </p>
+        <p style="margin-bottom:0;">
+          Published content prioritizes accuracy, context, and accountability. This function exists for public
+          awareness—not surveillance or intimidation.
+        </p>
+      </div>
 
-  <div class="section">
-    <h2>Documentation &amp; Frontline Reporting</h2>
-    <p>
-      M.I.L.I.T.I.A. lawfully documents public events, protests, and civic gatherings to preserve
-      accurate public records and provide firsthand reporting. Documentation occurs openly, only in
-      public spaces, and in compliance with all applicable recording and consent laws.
-    </p>
-    <p>
-      Published content prioritizes accuracy, context, and accountability. This function exists for
-      public awareness—not surveillance or intimidation.
-    </p>
-  </div>
+      <div class="card">
+        <h2>Charter (PDF)</h2>
+        <p>
+          Full organizational charter and reporting standards:
+        </p>
+        <a id="charterBtn" class="btn" href="#">Download Charter (PDF)</a>
+        <div id="status" class="status"></div>
+      </div>
 
-  <div class="section">
-    <h2>Charter &amp; Reporting Standards (PDF)</h2>
-    <p>
-      The full organizational charter, including conduct standards, accountability, and frontline
-      reporting guidelines, is available below.
-    </p>
+      <div class="card">
+        <h2>Contact &amp; Inquiries</h2>
+        <p>If you are interested in learning more or getting involved, contact us by email:</p>
+        <p class="mono" style="margin:10px 0 6px;">
+          midwestmilitia25@gmail.com
+        </p>
+        <p style="margin:0;">
+          <strong>Subject line:</strong> 1 for all
+        </p>
+        <p style="margin-top:10px;color:rgba(240,240,240,0.85);">
+          Please include your name and your email address in the message.
+        </p>
+      </div>
 
-    <a id="charterBtn" class="download" href="#">Download Charter (PDF)</a>
-    <div id="status" class="status"></div>
+    </div>
+
+    <div class="footer">
+      This page is informational and outlines purpose, limits, and standards.
+    </div>
+
   </div>
 
   <script>
@@ -189,17 +297,17 @@
       const status = document.getElementById("status");
 
       async function resolvePdfPath() {
-        status.textContent = "Locating PDF...";
+        if (status) status.textContent = "Locating PDF...";
         for (const path of candidates) {
           try {
             const res = await fetch(path, { method: "HEAD", cache: "no-store" });
             if (res.ok) {
-              status.innerHTML = 'PDF ready: <code>' + path + '</code>';
+              if (status) status.innerHTML = 'PDF ready: <code>' + path + '</code>';
               return path;
             }
           } catch (e) {}
         }
-        status.innerHTML =
+        if (status) status.innerHTML =
           'PDF not found. Confirm it exists in <code>/docs</code> and GitHub Pages is publishing your latest commit.';
         return null;
       }
@@ -207,32 +315,14 @@
       let resolved = null;
       resolvePdfPath().then(p => resolved = p);
 
-      btn.addEventListener("click", async function (e) {
-        e.preventDefault();
-        if (!resolved) resolved = await resolvePdfPath();
-        if (resolved) window.location.href = resolved;
-      });
+      if (btn) {
+        btn.addEventListener("click", async function (e) {
+          e.preventDefault();
+          if (!resolved) resolved = await resolvePdfPath();
+          if (resolved) window.location.href = resolved;
+        });
+      }
     })();
   </script>
-
-<div class="section">
-  <h2>Contact & Inquiries</h2>
-
-  <p>
-    If you are interested in learning more or getting involved, you may contact us directly by email.
-  </p>
-
-  <p>
-    <strong>Email:</strong><br />
-    midwestmilitia25@gmail.com
-  </p>
-
-  <p>
-    <strong>Subject line:</strong><br />
-    1 for all
-  </p>
-
-  <p>
-    Please include your name and your email address in the message.
-  </p>
-</div>
+</body>
+</html>
