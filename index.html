@@ -26,7 +26,8 @@
       cursor: pointer;
     }
     .download:hover { background-color: #d43752; }
-    .note { opacity: 0.85; font-size: 0.95rem; margin-top: 10px; }
+    .status { margin-top: 10px; opacity: 0.9; font-size: 0.95rem; }
+    code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 4px; }
   </style>
 </head>
 <body>
@@ -42,116 +43,58 @@
   </div>
 
   <div class="section">
-    <h2>Purpose</h2>
-    <ul>
-      <li>Promote community preparedness and mutual aid</li>
-      <li>Encourage civic awareness and critical thinking</li>
-      <li>Support lawful community defense and public safety</li>
-      <li>Assist with de-escalation during lawful civic action</li>
-      <li>Uphold constitutional principles and individual rights</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>Core Principles</h2>
-    <ul>
-      <li><strong>Truth over misinformation</strong></li>
-      <li><strong>Honor over ego</strong></li>
-      <li><strong>Preparedness over dependence</strong></li>
-      <li><strong>Action over apathy</strong></li>
-      <li><strong>Community over division</strong></li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>Conduct & Ethics</h2>
-    <ul>
-      <li>Violence is never initiated</li>
-      <li>De-escalation is always preferred</li>
-      <li>All actions must be lawful</li>
-      <li>No impersonation of authorities</li>
-      <li>Civilians and bystanders are protected</li>
-      <li>No harassment, intimidation, or vigilantism</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>Structure & Roles</h2>
-    <ul>
-      <li><strong>Observer</strong> — Learning and situational awareness</li>
-      <li><strong>Member</strong> — Preparedness, mutual aid, civic support</li>
-      <li><strong>Defender</strong> — Safety awareness during lawful events</li>
-      <li><strong>Planner</strong> — Emergency planning and logistics</li>
-      <li><strong>Coordinator</strong> — Local organization and scheduling</li>
-      <li><strong>Senior Member</strong> — Mentorship and standards guidance</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>Documentation & Frontline Reporting</h2>
-    <p>
-      M.I.L.I.T.I.A. lawfully documents public events, protests, and civic gatherings
-      to preserve accurate public records and provide firsthand reporting.
-      Documentation occurs openly, only in public spaces, and in compliance
-      with all applicable recording and consent laws.
-    </p>
-    <p>
-      Published content prioritizes accuracy, context, and accountability.
-      This function exists for public awareness—not surveillance or intimidation.
-    </p>
-  </div>
-
-  <div class="section">
     <h2>Charter & Reporting Standards</h2>
     <p>
       The full organizational charter, including conduct standards, accountability,
       and frontline reporting guidelines, is available below.
     </p>
 
-    <!-- Primary link assumes PDF is in /docs -->
-    <a
-      id="charterLink"
-      class="download"
-      href="docs/MILITIA_Charter_and_Frontline_Reporting.pdf"
-    >
+    <a id="charterBtn" class="download" href="#">
       Download Charter (PDF)
     </a>
 
-    <div class="note">
-      If the download doesn’t start, refresh the page once. (This link auto-detects the correct PDF path.)
-    </div>
+    <div id="status" class="status"></div>
   </div>
 
   <script>
     (function () {
-      const primary = "docs/MILITIA_Charter_and_Frontline_Reporting.pdf";
-      const fallback = "MILITIA_Charter_and_Frontline_Reporting.pdf"; // if Pages is serving from /docs
+      const filename = "MILITIA_Charter_and_Frontline_Reporting.pdf";
+      const candidates = [
+        "doc/" + filename,   // if your folder is named "doc"
+        "docs/" + filename,  // if your folder is named "docs"
+        filename             // if you moved it to root
+      ];
 
-      const link = document.getElementById("charterLink");
+      const btn = document.getElementById("charterBtn");
+      const status = document.getElementById("status");
 
-      link.addEventListener("click", async function (e) {
+      async function findPdf() {
+        status.textContent = "Checking for PDF...";
+        for (const path of candidates) {
+          try {
+            const res = await fetch(path, { method: "HEAD", cache: "no-store" });
+            if (res.ok) {
+              status.innerHTML = 'PDF found at <code>' + path + '</code>';
+              return path;
+            }
+          } catch (e) { /* ignore */ }
+        }
+        status.innerHTML =
+          'PDF not found. Confirm the folder name (<code>doc</code> vs <code>docs</code>) ' +
+          'and the exact filename (case-sensitive).';
+        return null;
+      }
+
+      let resolvedPath = null;
+
+      btn.addEventListener("click", async function (e) {
         e.preventDefault();
-
-        // Try primary path first
-        try {
-          const r1 = await fetch(primary, { method: "HEAD", cache: "no-store" });
-          if (r1.ok) {
-            window.location.href = primary;
-            return;
-          }
-        } catch (err) {}
-
-        // Fall back to root-level filename
-        try {
-          const r2 = await fetch(fallback, { method: "HEAD", cache: "no-store" });
-          if (r2.ok) {
-            window.location.href = fallback;
-            return;
-          }
-        } catch (err) {}
-
-        alert("PDF not found. Make sure the file name matches exactly and is published on GitHub Pages.");
+        if (!resolvedPath) resolvedPath = await findPdf();
+        if (resolvedPath) window.location.href = resolvedPath;
       });
+
+      // Auto-check on page load so you can see the result immediately
+      findPdf().then(p => { resolvedPath = p; });
     })();
   </script>
 
