@@ -12,12 +12,8 @@
       padding: 40px;
       line-height: 1.6;
     }
-    h1, h2 {
-      color: #e94560;
-    }
-    .section {
-      margin-bottom: 40px;
-    }
+    h1, h2 { color: #e94560; }
+    .section { margin-bottom: 40px; }
     .download {
       display: inline-block;
       margin-top: 15px;
@@ -27,10 +23,10 @@
       text-decoration: none;
       border-radius: 5px;
       font-weight: bold;
+      cursor: pointer;
     }
-    .download:hover {
-      background-color: #d43752;
-    }
+    .download:hover { background-color: #d43752; }
+    .note { opacity: 0.85; font-size: 0.95rem; margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -111,14 +107,53 @@
       The full organizational charter, including conduct standards, accountability,
       and frontline reporting guidelines, is available below.
     </p>
+
+    <!-- Primary link assumes PDF is in /docs -->
     <a
+      id="charterLink"
       class="download"
       href="docs/MILITIA_Charter_and_Frontline_Reporting.pdf"
-      download
     >
       Download Charter (PDF)
     </a>
+
+    <div class="note">
+      If the download doesn’t start, refresh the page once. (This link auto-detects the correct PDF path.)
+    </div>
   </div>
+
+  <script>
+    (function () {
+      const primary = "docs/MILITIA_Charter_and_Frontline_Reporting.pdf";
+      const fallback = "MILITIA_Charter_and_Frontline_Reporting.pdf"; // if Pages is serving from /docs
+
+      const link = document.getElementById("charterLink");
+
+      link.addEventListener("click", async function (e) {
+        e.preventDefault();
+
+        // Try primary path first
+        try {
+          const r1 = await fetch(primary, { method: "HEAD", cache: "no-store" });
+          if (r1.ok) {
+            window.location.href = primary;
+            return;
+          }
+        } catch (err) {}
+
+        // Fall back to root-level filename
+        try {
+          const r2 = await fetch(fallback, { method: "HEAD", cache: "no-store" });
+          if (r2.ok) {
+            window.location.href = fallback;
+            return;
+          }
+        } catch (err) {}
+
+        alert("PDF not found. Make sure the file name matches exactly and is published on GitHub Pages.");
+      });
+    })();
+  </script>
 
 </body>
 </html>
