@@ -26,8 +26,16 @@
       cursor: pointer;
     }
     .download:hover { background-color: #d43752; }
-    .status { margin-top: 10px; opacity: 0.9; font-size: 0.95rem; }
-    code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 4px; }
+    .status {
+      margin-top: 10px;
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
+    code {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body>
@@ -59,17 +67,19 @@
   <script>
     (function () {
       const filename = "MILITIA_Charter_and_Frontline_Reporting.pdf";
+
+      // If GitHub Pages serves from root, PDF will be at /docs/filename
+      // If GitHub Pages serves from /docs, PDF will be at /filename
       const candidates = [
-        "doc/" + filename,   // if your folder is named "doc"
-        "docs/" + filename,  // if your folder is named "docs"
-        filename             // if you moved it to root
+        "docs/" + filename,
+        filename
       ];
 
       const btn = document.getElementById("charterBtn");
       const status = document.getElementById("status");
 
-      async function findPdf() {
-        status.textContent = "Checking for PDF...";
+      async function resolvePdfPath() {
+        status.textContent = "Locating PDF...";
         for (const path of candidates) {
           try {
             const res = await fetch(path, { method: "HEAD", cache: "no-store" });
@@ -77,24 +87,24 @@
               status.innerHTML = 'PDF found at <code>' + path + '</code>';
               return path;
             }
-          } catch (e) { /* ignore */ }
+          } catch (e) {}
         }
         status.innerHTML =
-          'PDF not found. Confirm the folder name (<code>doc</code> vs <code>docs</code>) ' +
-          'and the exact filename (case-sensitive).';
+          'PDF not found. Double-check the exact filename in <code>/docs</code> and ensure GitHub Pages is enabled.';
         return null;
       }
 
-      let resolvedPath = null;
+      let resolved = null;
 
+      // Auto-check on load
+      resolvePdfPath().then(p => resolved = p);
+
+      // Download on click
       btn.addEventListener("click", async function (e) {
         e.preventDefault();
-        if (!resolvedPath) resolvedPath = await findPdf();
-        if (resolvedPath) window.location.href = resolvedPath;
+        if (!resolved) resolved = await resolvePdfPath();
+        if (resolved) window.location.href = resolved;
       });
-
-      // Auto-check on page load so you can see the result immediately
-      findPdf().then(p => { resolvedPath = p; });
     })();
   </script>
 
