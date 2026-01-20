@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>M.I.L.I.T.I.A. — Charter & Frontline Reporting </title>
+  <title>M.I.L.I.T.I.A. — Charter & Frontline Reporting</title>
   <style>
     :root{
       --bg:#0f0f0f;
@@ -313,7 +313,14 @@
     Once published, records cannot be altered or removed.
   </p>
 
-  <table border="1" cellpadding="8" cellspacing="0">
+  
+
+  <p style="font-size:0.9em; opacity:0.8; margin-top:12px;">
+    Ledger entries are factual records. Inclusion does not imply endorsement or judgment.
+  </p>
+</section>
+
+    <table border="1" cellpadding="8" cellspacing="0">
   <thead>
     <tr>
       <th>Date</th>
@@ -323,7 +330,6 @@
       <th>Status</th>
     </tr>
   </thead>
-
   <tbody id="ledgerRows"></tbody>
 </table>
 
@@ -333,6 +339,8 @@
 
     try {
       const res = await fetch('docs/ledger.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('ledger.json not found');
+
       const rows = await res.json();
 
       tbody.innerHTML = rows.map(r => `
@@ -346,15 +354,10 @@
       `).join('');
     } catch (e) {
       tbody.innerHTML = `<tr><td colspan="5">Ledger failed to load.</td></tr>`;
+      console.error(e);
     }
   })();
 </script>
-
-
-  <p style="font-size:0.9em; opacity:0.8; margin-top:12px;">
-    Ledger entries are factual records. Inclusion does not imply endorsement or judgment.
-  </p>
-</section>
 
     
   </div>
