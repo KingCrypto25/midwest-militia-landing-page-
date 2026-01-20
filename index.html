@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>M.I.L.I.T.I.A. — Charter & Frontline Reporting</title>
+  <title>M.I.L.I.T.I.A. — Charter & Frontline Reporting </title>
   <style>
     :root{
       --bg:#0f0f0f;
@@ -314,29 +314,42 @@
   </p>
 
   <table border="1" cellpadding="8" cellspacing="0">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Location</th>
-        <th>Description</th>
-        <th>Record</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>2026-03-20</td>
-        <td>Des Moines, IA</td>
-        <td>Public interaction recorded during peaceful gathering</td>
-        <td>
-          <a href="https://arweave.net/Yk9A7GZP8w1C0mK9..." target="_blank" rel="noopener">
-            View
-          </a>
-        </td>
-        <td>Verified</td>
-      </tr>
-    </tbody>
-  </table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Location</th>
+      <th>Description</th>
+      <th>Record</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+
+  <tbody id="ledgerRows"></tbody>
+</table>
+
+<script>
+  (async () => {
+    const tbody = document.getElementById('ledgerRows');
+
+    try {
+      const res = await fetch('docs/ledger.json', { cache: 'no-store' });
+      const rows = await res.json();
+
+      tbody.innerHTML = rows.map(r => `
+        <tr>
+          <td>${r.date || ''}</td>
+          <td>${r.location || ''}</td>
+          <td>${r.description || ''}</td>
+          <td>${r.tx ? `<a href="https://arweave.net/${r.tx}" target="_blank" rel="noopener">View</a>` : ''}</td>
+          <td>${r.status || ''}</td>
+        </tr>
+      `).join('');
+    } catch (e) {
+      tbody.innerHTML = `<tr><td colspan="5">Ledger failed to load.</td></tr>`;
+    }
+  })();
+</script>
+
 
   <p style="font-size:0.9em; opacity:0.8; margin-top:12px;">
     Ledger entries are factual records. Inclusion does not imply endorsement or judgment.
