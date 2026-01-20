@@ -136,44 +136,57 @@
     .mono{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
+
+    table{
+      width:100%;
+      border-color: rgba(255,255,255,0.15);
+      color: rgba(240,240,240,0.95);
+    }
+    th, td{
+      border-color: rgba(255,255,255,0.15);
+      vertical-align: top;
+      text-align: left;
+    }
+    a{ color: #ffffff; }
+    a:hover{ opacity: 0.9; }
   </style>
 </head>
+
 <body>
   <div class="wrap">
 
     <div class="hero">
-  <img
-    src="images/Midwest%20Militia%20Land%20Logo.png"
-    alt="Midwest Militia"
-    style="
-      width:100%;
-      max-height:320px;
-      object-fit:contain;
-      border-radius:14px;
-      margin-bottom:16px;
-      border:1px solid rgba(255,255,255,0.08);
-      background:#0f0f0f;
-      padding:12px;
-    "
-  />
+      <img
+        src="images/Midwest%20Militia%20Land%20Logo.png"
+        alt="Midwest Militia"
+        style="
+          width:100%;
+          max-height:320px;
+          object-fit:contain;
+          border-radius:14px;
+          margin-bottom:16px;
+          border:1px solid rgba(255,255,255,0.08);
+          background:#0f0f0f;
+          padding:12px;
+        "
+      />
 
-  <div class="brand">
-    <div>
-      <h1>M.I.L.I.T.I.A.</h1>
-      <div class="subtitle">
-        Modern Independent Leaders Inspiring Tactical, Intelligent Action
+      <div class="brand">
+        <div>
+          <h1>M.I.L.I.T.I.A.</h1>
+          <div class="subtitle">
+            Modern Independent Leaders Inspiring Tactical, Intelligent Action
+          </div>
+        </div>
       </div>
+
+      <p class="tagline">
+        M.I.L.I.T.I.A. is a lawful, community-based preparedness and civic action organization.
+        It exists to strengthen communities through awareness, ethical conduct, and responsible
+        action during periods of social stress, emergency, or civic disruption.
+      </p>
     </div>
-  </div>
 
-  <p class="tagline">
-    M.I.L.I.T.I.A. is a lawful, community-based preparedness and civic action organization.
-    It exists to strengthen communities through awareness, ethical conduct, and responsible
-    action during periods of social stress, emergency, or civic disruption.
-  </p>
-</div>
-
-    
     <div class="grid">
 
       <div class="card">
@@ -278,90 +291,106 @@
 
       <div class="card">
         <h2>Charter (PDF)</h2>
-        <p>
-          Full organizational charter and reporting standards:
-        </p>
+        <p>Full organizational charter and reporting standards:</p>
         <a id="charterBtn" class="btn" href="#">Download Charter (PDF)</a>
         <div id="status" class="status"></div>
       </div>
 
       <div class="card">
+        <h2>Master Handbook (PDF)</h2>
+        <p>Public standards and member guidelines compiled in one document:</p>
+        <a class="btn" href="docs/MILITIA-Master-Handbook-v1.0.pdf" target="_blank" rel="noopener">
+          Download Master Handbook (PDF)
+        </a>
+        <div class="status">Current version: v1.0</div>
+      </div>
+
+      <div class="card span2" id="ledger">
+        <h2>Public Evidence Ledger</h2>
+
+        <p>
+          Files listed below are stored on Arweave, a permanent decentralized storage network.
+          Once published, records cannot be altered or removed.
+        </p>
+
+        <table border="1" cellpadding="8" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Location</th>
+              <th>Description</th>
+              <th>Record</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="ledgerRows"></tbody>
+        </table>
+
+        <div class="status" style="margin-top:10px;">
+          Ledger entries are factual records. Inclusion does not imply endorsement or judgment.
+        </div>
+      </div>
+
+      <div class="card">
         <h2>Contact &amp; Inquiries</h2>
         <p>If you are interested in learning more or getting involved, contact us by email:</p>
-        <p class="mono" style="margin:10px 0 6px;">
-          midwestmilitia25@gmail.com
-        </p>
-        <p style="margin:0;">
-          <strong>Subject line:</strong> 1 for all
-        </p>
+        <p class="mono" style="margin:10px 0 6px;">midwestmilitia25@gmail.com</p>
+        <p style="margin:0;"><strong>Subject line:</strong> 1 for all</p>
         <p style="margin-top:10px;color:rgba(240,240,240,0.85);">
           Please include your name and your email address in the message.
         </p>
       </div>
 
-    </div>
+      <div class="card">
+        <h2>Documentation</h2>
+        <p>
+          Our public-facing materials outline our principles, conduct standards,
+          and lawful approach to civic engagement.
+        </p>
+        <a class="btn" href="docs/MILITIA-Manual-v1.2-Expanded-Public-Activist-Edition.pdf"
+           target="_blank" rel="noopener">
+          Download M.I.L.I.T.I.A. Manual (PDF)
+        </a>
+        <div class="status">Current version: v1.2 — Expanded Public Activist Edition</div>
+      </div>
+
+    </div><!-- /.grid -->
 
     <div class="footer">
       This page is informational and outlines purpose, limits, and standards.
     </div>
 
-<section id="ledger">
-  <h2>Public Evidence Ledger</h2>
+  </div><!-- /.wrap -->
 
-  <p>
-    Files listed below are stored on Arweave, a permanent decentralized storage network.
-    Once published, records cannot be altered or removed.
-  </p>
+  <!-- Ledger loader -->
+  <script>
+    (async () => {
+      const tbody = document.getElementById('ledgerRows');
+      if (!tbody) return;
 
-  
+      try {
+        const res = await fetch('docs/ledger.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('ledger.json not found');
 
-  <p style="font-size:0.9em; opacity:0.8; margin-top:12px;">
-    Ledger entries are factual records. Inclusion does not imply endorsement or judgment.
-  </p>
-</section>
+        const rows = await res.json();
 
-    <table border="1" cellpadding="8" cellspacing="0">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Location</th>
-      <th>Description</th>
-      <th>Record</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody id="ledgerRows"></tbody>
-</table>
+        tbody.innerHTML = rows.map(r => `
+          <tr>
+            <td>${r.date || ''}</td>
+            <td>${r.location || ''}</td>
+            <td>${r.description || ''}</td>
+            <td>${r.tx ? `<a href="https://arweave.net/${r.tx}" target="_blank" rel="noopener">View</a>` : ''}</td>
+            <td>${r.status || ''}</td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        tbody.innerHTML = `<tr><td colspan="5">Ledger failed to load.</td></tr>`;
+        console.error(e);
+      }
+    })();
+  </script>
 
-<script>
-  (async () => {
-    const tbody = document.getElementById('ledgerRows');
-
-    try {
-      const res = await fetch('docs/ledger.json', { cache: 'no-store' });
-      if (!res.ok) throw new Error('ledger.json not found');
-
-      const rows = await res.json();
-
-      tbody.innerHTML = rows.map(r => `
-        <tr>
-          <td>${r.date || ''}</td>
-          <td>${r.location || ''}</td>
-          <td>${r.description || ''}</td>
-          <td>${r.tx ? `<a href="https://arweave.net/${r.tx}" target="_blank" rel="noopener">View</a>` : ''}</td>
-          <td>${r.status || ''}</td>
-        </tr>
-      `).join('');
-    } catch (e) {
-      tbody.innerHTML = `<tr><td colspan="5">Ledger failed to load.</td></tr>`;
-      console.error(e);
-    }
-  })();
-</script>
-
-    
-  </div>
-
+  <!-- Charter button logic (unchanged, just cleaned placement) -->
   <script>
     (function () {
       const filename = "MILITIA_Charter_and_Frontline_Reporting.pdf";
@@ -398,62 +427,6 @@
       }
     })();
   </script>
+
 </body>
 </html>
-
-<section id="handbook">
-  <h2>Download</h2>
-
-  <p>
-    Our public standards and member guidelines are compiled here:
-  </p>
-
-  <a href="docs/MILITIA-Master-Handbook-v1.0.pdf" target="_blank" rel="noopener">
-    📘 Download the M.I.L.I.T.I.A. Master Handbook (PDF)
-  </a>
-
-  <p style="font-size: 0.9em; opacity: 0.8; margin-top: 8px;">
-    Current version: v1.0
-  </p>
-</section>
-
-
-<section id="documentation">
-  <h2>Documentation</h2>
-
-  <p>
-    Our public-facing materials outline our principles, conduct standards,
-    and lawful approach to civic engagement.
-  </p>
-
-  <a href="docs/MILITIA-Manual-v1.2-Expanded-Public-Activist-Edition.pdf"
-     target="_blank"
-     rel="noopener"
-     class="doc-link">
-    📄 Download the M.I.L.I.T.I.A. Manual (PDF)
-  </a>
-
-  <p class="doc-note">
-    Current version: v1.2 — Expanded Public Activist Edition
-  </p>
-</section>
-
-<section id="documentation">
-  <h2>Documentation</h2>
-
-  <p>
-    Our public-facing materials outline our principles, conduct standards,
-    and lawful approach to civic engagement.
-  </p>
-
-  <a href="docs/MILITIA-Manual-v1.2-Expanded-Public-Activist-Edition.pdf"
-     target="_blank"
-     rel="noopener"
-     class="doc-link">
-    📄 Download the M.I.L.I.T.I.A. Manual (PDF)
-  </a>
-
-  <p class="doc-note">
-    Current version: v1.2 — Expanded Public Activist Edition
-  </p>
-</section>
